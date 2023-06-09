@@ -16,6 +16,10 @@
 
   <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+  <py-env>
+        - paths:
+          - /example.py
+  </py-env>
 
   <!-- slider stylesheet -->
   <link rel="stylesheet" type="text/css"
@@ -171,14 +175,9 @@
               Many website do keyword serching on paid basis.But we are providing that for free and give the best
               results out there.
             </p>
-            <div class="col-md-6">
-              <div class="img-box">
-                <img src="images/contact-img.jpg" alt="">
-              </div>
-            </div>
             <div class="container contact_bg layout_padding2-top">
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-24">
                   <div class="contact_form ">
                     <form action="">
                       <input type="text" placeholder="Enter the link (Eg : www.website.com/otherfields/) ">
@@ -190,14 +189,31 @@
                   </div>
                 </div>
              
-              <div class="col-md-12">
-                <py-script src="./main.py"></py-script>
+              <div class="col-md-24">
+                <py-script">
+import requests
+import urllib
+from bs4 import BeautifulSoup
+
+url = input().strip()
+# url = 'https://www.geeksforgeeks.org/python-get-key-from-value-in-dictionary/'
+website = requests.get(url)
+website_text = website.text
+soup = BeautifulSoup(website_text,"html.parser")
+links=[]
+for link in soup.find_all('a'):
+  links.append(link.get('href'))
+
+for link in links:
+  if len(link)>1:
+    print(link)
+</py-script>
               </div>
             </div>
            
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
           <div class="img-box">
             <img src="images/about-img.png" alt="">
           </div>
